@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;800&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="module" defer src="js/script.js"></script>
+
+		<title>Online Counter</title>
+	</head>
+	<body>
+		<header class="header">
+			<h1 class="heading-primary">
+				Online <span class="u-colorBlue">Counter</span>
+			</h1>
+		</header>
+
+		<section class="counters">
+			
+		</section>
+
+		<button class="counters__btn">
+			<svg class="counters__btn-icon">
+				<use xlink:href="img/symbol-defs.svg#icon-plus"></use>
+			</svg>
+		</button>
+
+    <div class="overlay overlay--hidden"></div>
+
+		<div class="popup popup--hidden">
+			<div class="popup__content">
+				<div class="popup__icon-container">
+					<svg class="popup__icon">
+						<use xlink:href="img/symbol-defs.svg#icon-cross"></use>
+					</svg>
+				</div>
+				<p class="popup__text">Set goal to:</p>
+				<form action="#" class="form">
+					<input
+						type="number"
+						class="form__input"
+						placeholder="1"
+						min="1"
+						max="9999"
+					/>
+					<button class="form__button">Set</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

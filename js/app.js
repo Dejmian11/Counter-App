@@ -59,13 +59,13 @@ const renderCounters = () => {
         <nav class="nav">
             <ul class="nav__list">
               <li class="nav__element">
-                <a href="#" id="initial-value" class="nav__link">Initial value</a>
+                <button id="initial-value" class="nav__button">Initial value</a>
               </li>
               <li class="nav__element">
-                <a href="#" id="delete-goal" class="nav__link">Delete goal</a>
+                <button id="delete-goal" class="nav__button">Delete goal</a>
               </li>
               <li class="nav__element">
-                <a href="#" id="delete-counter" class="nav__link">Delete counter</a>
+                <button id="delete-counter" class="nav__button">Delete counter</a>
               </li>
             </ul>
           </nav>
@@ -118,7 +118,10 @@ const renderCounters = () => {
 		// Display popup listener
 		setGoalBtn.addEventListener(
 			'click',
-			e => displayGoalPopup(e, counter),
+			e => {
+				if (!e.target.classList.contains('counter__btn--secondary')) return;
+				displayPopup(e, counter);
+			},
 			false
 		);
 	});
@@ -139,11 +142,16 @@ const displayNav = (counter, counterHTML) => {
 
 	nav.style.display = 'block';
 
-  nav.addEventListener('click', (e) => {
-    if(e.target.getAttribute('id') === 'initial-value') changeInitialValue(counter);
-    if(e.target.getAttribute('id') === 'delete-goal') deleteGoal(counter);
-    if(e.target.getAttribute('id') === 'delete-counter') deleteCounter(counter);
-  })
+	nav.addEventListener('click', e => {
+
+		if (e.target.getAttribute('id') === 'initial-value')
+			displayPopup(e, counter);
+		if (e.target.getAttribute('id') === 'delete-goal') deleteGoal(counter);
+		if (e.target.getAttribute('id') === 'delete-counter')
+			deleteCounter(counter);
+
+		closeNav(nav, overlay);
+	});
 };
 
 // ===================== CLOSE NAV =====================================
@@ -151,11 +159,6 @@ const closeNav = (nav, overlay) => {
 	nav.style.display = 'none';
 	overlay.classList.add('overlay--hidden');
 };
-
-// ===================== CHANGE INITIAL VALUE ==========================
-const changeInitialValue = (counter) => {
-  
-}
 
 // ===================== CHANGE COUNTER NUMBER STYLES ==================
 const changeNumStyles = (counterHTML, counter) => {
@@ -186,54 +189,77 @@ const changeValue = (e, counter) => {
 	renderCounters();
 };
 
-// ===================== DISPLAY GOAL POPUP ============================
-const displayGoalPopup = (e, counter) => {
-	if (!e.target.classList.contains('counter__btn--secondary')) return;
-	const popup = document.querySelector('.popup');
-	popup.classList.remove('popup--hidden');
-	popup.dataset.id = e.target.closest('.counter').getAttribute('data-id');
+// ===================== DISPLAY POPUP =================================
+const displayPopup = (e, counter) => {
+	const popup = document.createElement('div');
+	popup.classList.add('popup');
+	popup.innerHTML = `
+    <div class="popup__content">
+      <div class="popup__icon-container">
+        <svg class="popup__icon">
+          <use xlink:href="img/symbol-defs.svg#icon-cross"></use>
+        </svg>
+      </div>
+      <p class="popup__text"></p>
+      <form action="#" class="form">
+        <input
+          type="number"
+          class="form__input"
+          placeholder="1"
+          min="${MIN_VALUE + 1}"
+          max="${MAX_VALUE}"
+        />
+        <button class="form__button">Set</button>
+      </form>
+    </div>
+  `;
+
+	document.querySelector('body').appendChild(popup);
+	const popupText = popup.querySelector('.popup__text');
+	const form = popup.querySelector('.form');
+	const formInput = document.querySelector('.form__input');
+
+	const clickedElement = e.target;
+	if (clickedElement.classList.contains('counter__btn--secondary')) {
+		popupText.innerText = 'Set goal to:';
+	}
+	if (clickedElement.getAttribute('id') === 'initial-value') {
+		popupText.innerText = 'Set value to:';
+	}
+
+	form.addEventListener('submit', e => {
+		e.preventDefault();
+		const inputValue = formInput.value;
+		if (!inputValue) return;
+
+		if (clickedElement.classList.contains('counter__btn--secondary')) {
+			console.log('goal');
+			counter.goal = +inputValue;
+			if (counter.goal < counter.value) counter.value = counter.goal;
+			removePopup(popup);
+			renderCounters();
+		}
+		if (clickedElement.getAttribute('id') === 'initial-value') {
+			console.log('value');
+			counter.value = +inputValue;
+			if (counter.value > counter.goal && counter.goal)
+				counter.goal = counter.value;
+			removePopup(popup);
+			renderCounters();
+		}
+	});
 
 	popup
 		.querySelector('.popup__icon')
-		.addEventListener('click', () => closePopup(popup), false);
-	window.addEventListener(
-		'keydown',
-		e => {
-			if (e.key === 'Escape') closePopup(popup);
-		},
-		false
-	);
-	const form = popup.querySelector('.form');
-
-	// Set goal listener
-	form.addEventListener('submit', e => setGoal(e, counter, popup), false);
+		.addEventListener('click', () => removePopup(popup));
+	window.addEventListener('keydown', e => {
+		if (e.key === 'Escape') removePopup(popup);
+	});
 };
 
-// ====================== CLOSE POPUP ==================================
-const closePopup = popup => {
-	popup.classList.add('popup--hidden');
-};
-
-// ===================== SET GOAL ======================================
-const setGoal = (e, counter, popup) => {
-	e.preventDefault();
-	const formInput = document.querySelector('.form__input');
-	const goal = formInput.value;
-	if (!goal) return;
-
-	const popupID = popup.getAttribute('data-id');
-	const [currCounter] = counters.filter(counter => counter.id === popupID);
-
-	currCounter.goal = +goal;
-
-	formInput.value = '';
-	popup.classList.add('popup--hidden');
-
-	if (currCounter.value > currCounter.goal) {
-		currCounter.value = currCounter.goal;
-	}
-
-	renderCounters();
+// ====================== REMOVE POPUP =================================
+const removePopup = popup => {
+	popup.remove();
 };
 
 const init = () => {

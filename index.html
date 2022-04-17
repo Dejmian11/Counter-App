@@ -13,7 +13,7 @@
 		/>
 
 		<link rel="stylesheet" href="css/style.css" />
-		<script type="module" defer src="js/script.js"></script>
+		<script type="module" defer src="js/app.js"></script>
 
 		<title>Online Counter</title>
 	</head>
@@ -24,9 +24,7 @@
 			</h1>
 		</header>
 
-		<section class="counters">
-			
-		</section>
+		<section class="counters"></section>
 
 		<button class="counters__btn">
 			<svg class="counters__btn-icon">
@@ -34,27 +32,6 @@
 			</svg>
 		</button>
 
-    <div class="overlay overlay--hidden"></div>
-
-		<div class="popup popup--hidden">
-			<div class="popup__content">
-				<div class="popup__icon-container">
-					<svg class="popup__icon">
-						<use xlink:href="img/symbol-defs.svg#icon-cross"></use>
-					</svg>
-				</div>
-				<p class="popup__text">Set goal to:</p>
-				<form action="#" class="form">
-					<input
-						type="number"
-						class="form__input"
-						placeholder="1"
-						min="1"
-						max="9999"
-					/>
-					<button class="form__button">Set</button>
-				</form>
-			</div>
-		</div>
+		<div class="overlay overlay--hidden"></div>
 	</body>
 </html>

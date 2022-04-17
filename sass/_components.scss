@@ -302,21 +302,22 @@
 		list-style: none;
 	}
 
-	&__link {
+	&__button {
 		display: block;
+    background-color: transparent;
+    border: none;
+    font-family: inherit;
 		width: 100%;
 		height: 100%;
 		padding: 0.3rem 1rem;
 		font-size: 1.6rem;
 		text-decoration: none;
+    cursor: pointer;
 		transition: 0.2s;
 
 		&:hover {
 			background-color: $color-grey-5;
-		}
-
-		&:active {
-			color: $color-grey-1;
+      color: $color-grey-1;
 		}
 	}
 }

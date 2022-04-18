@@ -40,10 +40,12 @@ const renderCounters = () => {
 
 	countersContainer.innerHTML = '';
 
-	counters.forEach(counter => {
+	counters.forEach((counter, index) => {
 		const counterHTML = document.createElement('div');
 		counterHTML.classList.add('counter');
 		counterHTML.dataset.id = counter.id;
+		counterHTML.dataset.index = index;
+
 		counterHTML.innerHTML = `
       <div class="counter__header">
         <input type="text" class="counter__title" value="${counter.title}" spellcheck="false">
@@ -142,17 +144,22 @@ const resetValue = counter => {
 };
 
 // ===================== DELETE GOAL ===================================
-const deleteGoal = (counter) => {
-  counter.goal = 0;
+const deleteGoal = counter => {
+	counter.goal = 0;
+	renderCounters();
+};
+
+// ===================== DELETE COUNTER ================================
+const deleteCounter = (e) => {
+  const index = e.target.closest('.counter').dataset.index;
+  counters.splice(index, 1)
   renderCounters();
 }
-
-
 
 // ===================== DISPLAY NAV ===================================
 const displayNav = (counter, counterHTML) => {
 	const nav = counterHTML.querySelector('.nav');
-	const overlay = document.querySelector('.overlay');
+	const overlay = document.querySelector('.overlay');  
 
 	overlay.classList.remove('overlay--hidden');
 	overlay.addEventListener('click', () => closeNav(nav, overlay));
@@ -160,12 +167,13 @@ const displayNav = (counter, counterHTML) => {
 	nav.style.display = 'block';
 
 	nav.addEventListener('click', e => {
+
 		if (e.target.getAttribute('id') === 'initial-value')
 			displayPopup(e, counter);
 		if (e.target.getAttribute('id') === 'reset-value') resetValue(counter);
 		if (e.target.getAttribute('id') === 'delete-goal') deleteGoal(counter);
 		if (e.target.getAttribute('id') === 'delete-counter')
-			deleteCounter(counter);
+			deleteCounter(e, counter);
 
 		closeNav(nav, overlay);
 	});

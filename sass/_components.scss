@@ -7,6 +7,10 @@
 	letter-spacing: 0.2rem;
 	text-transform: uppercase;
 
+  @media screen and (min-width: 500px) {
+    margin-bottom: 5rem;
+  }
+
 	@media screen and (min-width: 1024px) {
 		font-size: 6rem;
 	}

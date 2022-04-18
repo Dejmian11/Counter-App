@@ -3,20 +3,7 @@ import { INITIAL_NAME, INITIAL_VALUE, MAX_VALUE, MIN_VALUE } from './config.js';
 
 const addCounterBtn = document.querySelector('.counters__btn');
 
-const counters = [
-	{
-		title: INITIAL_NAME,
-		value: INITIAL_VALUE,
-		id: `${Date.now()}`.slice(-10) + 2,
-		goal: 0,
-	},
-	{
-		title: INITIAL_NAME,
-		value: INITIAL_VALUE,
-		id: `${Date.now()}`.slice(-10) + 6,
-		goal: 0,
-	},
-];
+const counters = [];
 
 // ===================== CREATE COUNTER ================================
 const createCounter = () => {
@@ -28,8 +15,7 @@ const createCounter = () => {
 	};
 
 	counters.push(counter);
-	console.log(counters); // test
-	renderCounters(counter);
+	renderCounters();
 };
 
 addCounterBtn.addEventListener('click', createCounter);
@@ -130,11 +116,15 @@ const renderCounters = () => {
 			false
 		);
 	});
+
+	setLocalStorage();
 };
 
 // ===================== CHANGE COUNTER TITLE ==========================
 const changeCounterTitle = (counter, counterTitle) => {
 	counter.title = counterTitle.value;
+	setLocalStorage();
+	counterTitle.focus();
 };
 
 // ===================== RESET COUNTER =================================
@@ -150,16 +140,16 @@ const deleteGoal = counter => {
 };
 
 // ===================== DELETE COUNTER ================================
-const deleteCounter = (e) => {
-  const index = e.target.closest('.counter').dataset.index;
-  counters.splice(index, 1)
-  renderCounters();
-}
+const deleteCounter = e => {
+	const index = e.target.closest('.counter').dataset.index;
+	counters.splice(index, 1);
+	renderCounters();
+};
 
 // ===================== DISPLAY NAV ===================================
 const displayNav = (counter, counterHTML) => {
 	const nav = counterHTML.querySelector('.nav');
-	const overlay = document.querySelector('.overlay');  
+	const overlay = document.querySelector('.overlay');
 
 	overlay.classList.remove('overlay--hidden');
 	overlay.addEventListener('click', () => closeNav(nav, overlay));
@@ -167,7 +157,6 @@ const displayNav = (counter, counterHTML) => {
 	nav.style.display = 'block';
 
 	nav.addEventListener('click', e => {
-
 		if (e.target.getAttribute('id') === 'initial-value')
 			displayPopup(e, counter);
 		if (e.target.getAttribute('id') === 'reset-value') resetValue(counter);
@@ -288,8 +277,27 @@ const removePopup = popup => {
 	popup.remove();
 };
 
+// ====================== SET LOCAL STORAGE ============================
+const setLocalStorage = () => {
+	localStorage.setItem('counters', JSON.stringify(counters));
+};
+
+// ====================== GET LOCAL STORAGE ============================
+const getLocalStorage = () => {
+	const data = JSON.parse(localStorage.getItem('counters'));
+
+	if (!data) return;
+  if (data.length === 0) createCounter();
+
+  data.forEach((el, i) => {
+    counters[i] = el;
+  })
+
+  renderCounters()
+};
+
 const init = () => {
-	createCounter();
+  getLocalStorage()
 	renderCounters();
 };
 init();

@@ -59,13 +59,16 @@ const renderCounters = () => {
         <nav class="nav">
             <ul class="nav__list">
               <li class="nav__element">
-                <button id="initial-value" class="nav__button">Initial value</a>
+                <button id="initial-value" class="nav__button">Initial value</button>
               </li>
               <li class="nav__element">
-                <button id="delete-goal" class="nav__button">Delete goal</a>
+                <button id="reset-value" class="nav__button">Reset value</button>
               </li>
               <li class="nav__element">
-                <button id="delete-counter" class="nav__button">Delete counter</a>
+                <button id="delete-goal" class="nav__button">Delete goal</button>
+              </li>
+              <li class="nav__element">
+                <button id="delete-counter" class="nav__button">Delete counter</button>
               </li>
             </ul>
           </nav>
@@ -132,6 +135,20 @@ const changeCounterTitle = (counter, counterTitle) => {
 	counter.title = counterTitle.value;
 };
 
+// ===================== RESET COUNTER =================================
+const resetValue = counter => {
+	counter.value = 0;
+	renderCounters();
+};
+
+// ===================== DELETE GOAL ===================================
+const deleteGoal = (counter) => {
+  counter.goal = 0;
+  renderCounters();
+}
+
+
+
 // ===================== DISPLAY NAV ===================================
 const displayNav = (counter, counterHTML) => {
 	const nav = counterHTML.querySelector('.nav');
@@ -143,9 +160,9 @@ const displayNav = (counter, counterHTML) => {
 	nav.style.display = 'block';
 
 	nav.addEventListener('click', e => {
-
 		if (e.target.getAttribute('id') === 'initial-value')
 			displayPopup(e, counter);
+		if (e.target.getAttribute('id') === 'reset-value') resetValue(counter);
 		if (e.target.getAttribute('id') === 'delete-goal') deleteGoal(counter);
 		if (e.target.getAttribute('id') === 'delete-counter')
 			deleteCounter(counter);
@@ -191,6 +208,9 @@ const changeValue = (e, counter) => {
 
 // ===================== DISPLAY POPUP =================================
 const displayPopup = (e, counter) => {
+	const popupsContainer = document.querySelector('.popups');
+	popupsContainer.innerHTML = '';
+
 	const popup = document.createElement('div');
 	popup.classList.add('popup');
 	popup.innerHTML = `
@@ -214,7 +234,7 @@ const displayPopup = (e, counter) => {
     </div>
   `;
 
-	document.querySelector('body').appendChild(popup);
+	popupsContainer.appendChild(popup);
 	const popupText = popup.querySelector('.popup__text');
 	const form = popup.querySelector('.form');
 	const formInput = document.querySelector('.form__input');
@@ -232,21 +252,19 @@ const displayPopup = (e, counter) => {
 		const inputValue = formInput.value;
 		if (!inputValue) return;
 
+		// ROZDZIELIC NA 2 FUNKCJE  !!!!!!!!!!!!!!!!!!!!!!!!!!!
 		if (clickedElement.classList.contains('counter__btn--secondary')) {
-			console.log('goal');
 			counter.goal = +inputValue;
 			if (counter.goal < counter.value) counter.value = counter.goal;
-			removePopup(popup);
-			renderCounters();
 		}
 		if (clickedElement.getAttribute('id') === 'initial-value') {
-			console.log('value');
 			counter.value = +inputValue;
 			if (counter.value > counter.goal && counter.goal)
 				counter.goal = counter.value;
-			removePopup(popup);
-			renderCounters();
 		}
+
+		removePopup(popup);
+		renderCounters();
 	});
 
 	popup

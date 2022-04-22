@@ -1,7 +1,7 @@
 /* eslint-disable*/
 import { INITIAL_NAME, INITIAL_VALUE, MAX_VALUE, MIN_VALUE } from './config.js';
 
-const addCounterBtn = document.querySelector('.counters__btn');
+const addCounterBtn = document.querySelector('.button--circle');
 
 const counters = [];
 
@@ -10,7 +10,6 @@ const createCounter = () => {
 	const counter = {
 		title: INITIAL_NAME,
 		value: INITIAL_VALUE,
-		id: `${Date.now()}`.slice(-10),
 		goal: 0,
 	};
 
@@ -181,7 +180,7 @@ const changeNumStyles = (counterHTML, counter) => {
 	if (counterNum.innerText.length > 3) {
 		counterNum.classList.add('counter__number--small');
 	}
-	if (counterGoal.innerText.length > 3) {
+	if (counterGoal.innerText.length > 4) {
 		counterGoal.classList.add('counter__goal--small');
 	}
 
@@ -249,7 +248,6 @@ const displayPopup = (e, counter) => {
 		const inputValue = formInput.value;
 		if (!inputValue) return;
 
-		// ROZDZIELIC NA 2 FUNKCJE  !!!!!!!!!!!!!!!!!!!!!!!!!!!
 		if (clickedElement.classList.contains('counter__btn--secondary')) {
 			counter.goal = +inputValue;
 			if (counter.goal < counter.value) counter.value = counter.goal;
@@ -287,17 +285,17 @@ const getLocalStorage = () => {
 	const data = JSON.parse(localStorage.getItem('counters'));
 
 	if (!data) return;
-  if (data.length === 0) createCounter();
+	if (data.length === 0) createCounter();
 
-  data.forEach((el, i) => {
-    counters[i] = el;
-  })
+	data.forEach((el, i) => {
+		counters[i] = el;
+	});
 
-  renderCounters()
+	renderCounters();
 };
 
 const init = () => {
-  getLocalStorage()
+	getLocalStorage();
 	renderCounters();
 };
 init();

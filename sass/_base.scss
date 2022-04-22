@@ -1,14 +1,42 @@
-// VARIABLES
-$color-primary: #339af0;
-$color-primary-dark: #2d87d0;
+// ===================== VARIABLES ======================================
 
-$color-grey-1: #343a40;
-$color-grey-2: #495057;
-$color-grey-3: #868e96;
-$color-grey-4: #bac4ce;
-$color-grey-5: #e8eff6;
+// Colors
+$clr-primary: #339af0;
+$clr-primary-dk: #2d87d0;
 
-$color-white: #fff;
+$clr-red: #cc0000;
+
+$clr-grey-1: #343a40;
+$clr-grey-2: #495057;
+$clr-grey-3: #868e96;
+$clr-grey-4: #bac4ce;
+$clr-grey-5: #e8eff6;
+
+$clr-white: #fff;
+
+$clr-dk-transparent: rgba(0, 0, 0, 0.8);
+
+// Shadows
+$shadow-dk: 4px 4px 18px -7px rgba(0, 0, 0, 0.5);
+$shadow-lt: 4px 4px 18px -7px rgba(0, 0, 0, 0.2);
+
+// Font size
+$fs-default: 1.6rem;
+
+$fs-smallest: 2rem;
+$fs-small: 3rem;
+$fs-medium: 6rem;
+$fs-big: 7rem;
+$fs-biggest: 10rem;
+
+$fs-h1: 4rem;
+
+// Media Queries
+$bp-medium: 48em; // 768px
+$bp-small: 31.25em; // 500px
+
+
+// ===================== RESET ==========================================
 
 *,
 *::after,
@@ -20,24 +48,68 @@ $color-white: #fff;
 
 html {
 	box-sizing: border-box;
-	font-size: 62.5%; // 1 rem = 10px, 10px/16px = 62.5%
+	font-size: 62.5%; // 1 rem = 10px
 
-  @media screen and (min-width: 500px) {
-    font-size: 50%;
-  }
+	@media screen and (min-width: $bp-small) {
+		font-size: 50%; // 1rem = 8px
+	}
 }
 
 body {
-	min-height: 100vh;
-	color: $color-white;
+	background-color: $clr-grey-1;
+	color: $clr-white;
+  font-size: $fs-default;
 	font-family: 'Poppins', sans-serif;
 	font-weight: 400;
 	line-height: 1.6;
-	background: $color-grey-1;
+  
+	&::-webkit-scrollbar {
+		width: 14px;
+		background-color: $clr-grey-5;
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: $clr-grey-1;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		border: 3px solid $clr-grey-1;
+		background-color: $clr-grey-3;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background-color: $clr-grey-2;
+	}
 }
 
-// UTILITIES
 
-.u-colorBlue {
-	color: $color-primary;
+// ===================== MIXINS =========================================
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+@mixin flex-center-column {
+  @include flex-center;
+  flex-direction: column;
+}
+
+@mixin flex-center-vert {
+  display: flex;
+  align-items: center;
+}
+
+@mixin full-scr-fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+  height: 100vh;
+}
+
+
+// ===================== UTILITIES ======================================
+

@@ -1,59 +1,59 @@
-// HEADING PRIMARY
+// ===================== HEADING PRIMARY ================================
 .heading-primary {
-	font-size: 4rem;
+	font-size: $fs-h1;
 	font-weight: 600;
 	text-align: center;
 	line-height: 1.2;
 	letter-spacing: 0.2rem;
 	text-transform: uppercase;
 
-  @media screen and (min-width: 500px) {
-    margin-bottom: 5rem;
+  & > span {
+    color: $clr-primary;
   }
 
-	@media screen and (min-width: 1024px) {
-		font-size: 6rem;
+	@media screen and (min-width: $bp-medium) {
+		font-size: $fs-medium;
 	}
 
 	&--blue {
-		color: $color-primary;
+		color: $clr-primary;
 	}
 }
 
-// COUNTER ELEMENT
+// ===================== COUNTER ========================================
 .counter {
-	max-width: 33rem;
-	padding: 1.5rem 2rem;
-	border-radius: 2rem;
-	box-shadow: 4px 4px 18px -7px rgba(0, 0, 0, 0.2);
-	background: $color-grey-2;
 	position: relative;
+  display: grid;
+  grid-template-rows: 3rem 15rem 2fr;
+	padding: 2rem;
+	border-radius: 20px;
+	box-shadow: $shadow-dk;
+	background-color: $clr-grey-2;
 
 	&__header {
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
+		justify-content: space-between;
 	}
 
 	&__title {
-		width: 90%;
-		padding-right: 1rem;
-		font-size: 1.6rem;
+    padding: .4rem;
+		border: none;
+    border-radius: 2px;
+		background-color: $clr-grey-2;
+		font-size: $fs-default;
 		font-weight: 600;
 		letter-spacing: 0.1rem;
-		color: $color-white;
-		background-color: $color-grey-2;
-		border: none;
+		color: $clr-white;
 
 		&:focus {
-			outline: none;
+			outline: 2px solid $clr-grey-3;
 		}
 	}
 
 	&__link {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		@include flex-center;
+
 		height: 2.7rem;
 		width: 2.7rem;
 		border: none;
@@ -62,69 +62,66 @@
 		transition: all 0.2s;
 
 		&:hover .counter__icon {
-			fill: $color-grey-4;
+			fill: $clr-grey-4;
 		}
 	}
 
 	&__icon {
 		height: 2.2rem;
 		width: 2.2rem;
-		fill: $color-grey-3;
+		fill: $clr-grey-3;
 	}
 
 	&__value {
-		display: flex;
+		@include flex-center-vert;
+    
+    justify-content: center;
 	}
 
 	&__number {
-		padding: 3rem 0;
 		margin-left: auto;
 		margin-right: auto;
-		font-size: 10rem;
+		font-size: $fs-biggest;
 		font-weight: 600;
-		text-align: center;
-		line-height: 1;
-		color: $color-primary;
+    line-height: 1;
+		color: $clr-primary;
 
 		&--small {
-			font-size: 7rem;
+			font-size: $fs-big;
 		}
 
 		&--red {
-			color: #cc0000;
+			color: $clr-red;
 		}
 	}
 
 	&__goal {
 		display: none;
-		font-size: 3rem;
-		color: $color-grey-3;
-		padding-top: 30%;
+		margin-top: 22%;
+		font-size: $fs-small;
+		color: $clr-grey-3;
 
 		&--small {
-			font-size: 2rem;
+      margin-top: 16%;
+			font-size: $fs-smallest;
 		}
 	}
 
 	&__buttons {
-		display: flex;
-		flex-wrap: wrap;
+		display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 9.5rem 10rem;
 	}
 
 	&__btn--primary {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		@include flex-center;
+
 		padding: 2rem 0;
-		width: 50%;
 		border: 2px solid currentColor;
 		background-color: transparent;
-		color: $color-grey-3;
+		color: $clr-grey-3;
+		transition: all 0.1s;
 		cursor: pointer;
-
-		@media screen and (min-width: 1024px) {
-			padding: 1rem 0;
-		}
 
 		&:nth-of-type(1) {
 			border-top-left-radius: 10px;
@@ -137,7 +134,7 @@
 		}
 
 		&:hover {
-			color: $color-grey-4;
+			color: $clr-grey-4;
 		}
 	}
 
@@ -145,46 +142,39 @@
 		height: 5rem;
 		width: 5rem;
 		fill: currentColor;
-		pointer-events: none; // WAŻNE!!!!!!!!!!!!!!
+		pointer-events: none;
 	}
 
 	&__btn--secondary {
+    grid-column: span 2;
 		margin: 4rem auto 1rem auto;
 		padding: 1rem 3rem;
 		border: 2px solid currentColor;
-		border-radius: 5rem;
-		box-shadow: 4px 4px 10px -7px rgba(0, 0, 0, 0.5);
-		background-color: $color-grey-2;
-		cursor: pointer;
-		font-size: 1.8rem;
+		border-radius: 50px;
+		box-shadow: $shadow-dk;
+		background-color: $clr-grey-2;
+		font-size: $fs-smallest;
 		font-weight: 600;
-		color: $color-grey-4;
+		color: $clr-grey-4;
+		cursor: pointer;
 		transition: all 0.2s;
 
 		&:hover {
-			color: $color-grey-1;
-			background-color: $color-grey-4;
-			border: 2px solid $color-grey-4;
+			border: 2px solid $clr-grey-4;
+			background-color: $clr-grey-4;
+			color: $clr-grey-1;
 		}
 	}
 }
 
-// POPUP
+// ===================== POPUP ==========================================
 .popup {
-	height: 100vh;
-	width: 100%;
-	position: fixed;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	top: 0;
-	left: 0;
-	background-color: rgba(0, 0, 0, 0.8);
-	z-index: 2900;
-	transition: all 0.3s;
+	@include flex-center;
+  @include full-scr-fixed;
+
+	background-color: $clr-dk-transparent;
 
 	&--hidden {
-		opacity: 0;
 		display: none;
 	}
 
@@ -194,11 +184,9 @@
 		flex-direction: column;
 		width: 90vw;
 		max-width: 576px;
-		background-color: $color-grey-4;
-		box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.2);
-		border-radius: 20px;
 		padding: 2rem;
-		transition: all 0.3s;
+		border-radius: 20px;
+		background-color: $clr-grey-4;
 	}
 
 	&__icon-container {
@@ -210,97 +198,89 @@
 	&__icon {
 		height: 4rem;
 		width: 4rem;
-		fill: $color-grey-3;
+		fill: $clr-grey-3;
 		cursor: pointer;
 		transition: all 0.2s;
 
-		@media screen and (min-width: 500px) {
-			height: 5rem;
-			width: 5rem;
-		}
-
 		&:hover {
-			fill: $color-grey-2;
+			fill: $clr-grey-2;
 		}
 	}
 
 	&__text {
-		font-size: 3.5rem;
+		margin: 5rem auto;
+		font-size: $fs-small;
+    font-weight: 600;
 		text-transform: uppercase;
-		color: $color-primary;
-		font-weight: 600;
-		margin: 9rem auto 3rem auto;
+		color: $clr-primary;
 
-		@media screen and (min-width: 500px) {
-			font-size: 5rem;
+		@media screen and (min-width: $bp-small) {
+			font-size: $fs-medium;
 		}
 	}
 }
 
-// FORM
+// ===================== FORM ===========================================
 .form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	@include flex-center-column;
 
 	&__input {
-		font-size: 5rem;
-		background-color: $color-white;
-		border: none;
 		padding: 1rem;
+		max-width: 17rem;
+		border: none;
 		border-radius: 20px;
-		width: 60%;
+		background-color: $clr-white;
+		font-size: $fs-medium;
 		font-weight: 600;
-		color: $color-grey-1;
-		margin-bottom: 3rem;
+		color: $clr-grey-1;
+    
 
-		@media screen and (min-width: 500px) {
-			width: 35%;
-			font-size: 6rem;
+		@media screen and (min-width: $bp-small) {
+			max-width: 21rem;
 			padding: 1.5rem;
 		}
 
 		&:focus {
-			outline: none;
+			outline: 2px solid $clr-primary;
 		}
 	}
 
 	&__button {
-		background-color: $color-primary;
-		color: $color-white;
+		margin: 3rem auto 1rem;
+		padding: 1.1rem 5rem;
 		border: none;
-		padding: 1.5rem 5rem;
 		border-radius: 30px;
-		text-transform: uppercase;
-		font-size: 2rem;
+		background-color: $clr-primary;
+		font-size: $fs-smallest;
 		font-weight: 600;
-		letter-spacing: 1px;
-		margin-top: 1rem;
-		margin-bottom: 2rem;
+		letter-spacing: 0.1rem;
+		text-transform: uppercase;
+		color: $clr-white;
 		cursor: pointer;
 		transition: all 0.2s;
 
-		@media screen and (min-width: 500px) {
-			font-size: 2.5rem;
-			padding: 1.8rem 7rem;
+		@media screen and (min-width: $bp-small) {
+			padding: 1.5rem 6rem;
+			font-size: $fs-small;
 		}
 
 		&:hover {
-			background-color: $color-primary-dark;
+			background-color: $clr-primary-dk;
 		}
 	}
 }
 
-// NAV
+// ===================== OPTIONS ========================================
 .nav {
 	position: absolute;
 	top: 12%;
 	right: 2%;
+	z-index: 3000;
 	display: none;
-	background-color: $color-white;
 	padding: 0.5rem 0;
 	border-radius: 7px;
-	z-index: 3000;
+  box-shadow: $shadow-lt;
+	background-color: $clr-white;
 
 	&__list {
 		list-style: none;
@@ -308,32 +288,26 @@
 
 	&__button {
 		display: block;
-    background-color: transparent;
-    border: none;
-    font-family: inherit;
-		width: 100%;
 		height: 100%;
+		width: 100%;
 		padding: 0.3rem 1rem;
-		font-size: 1.6rem;
+		border: none;
+		background-color: transparent;
+		font-family: inherit;
+		font-size: $fs-default;
 		text-decoration: none;
-    cursor: pointer;
+		cursor: pointer;
 		transition: 0.2s;
 
 		&:hover {
-			background-color: $color-grey-5;
-      color: $color-grey-1;
+			background-color: $clr-grey-5;
+			color: $clr-grey-1;
 		}
 	}
 }
 
-// OVERLAY
 .overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 2999;
+	@include full-scr-fixed;
 
 	&--hidden {
 		display: none;

@@ -113,7 +113,7 @@
     grid-template-rows: 9.5rem 10rem;
 	}
 
-	&__btn--primary {
+	&__button--primary {
 		@include flex-center;
 
 		padding: 2rem 0;
@@ -138,14 +138,14 @@
 		}
 	}
 
-	&__btn-icon {
+	&__button-icon {
 		height: 5rem;
 		width: 5rem;
 		fill: currentColor;
 		pointer-events: none;
 	}
 
-	&__btn--secondary {
+	&__button--secondary {
     grid-column: span 2;
 		margin: 4rem auto 1rem auto;
 		padding: 1rem 3rem;
@@ -189,15 +189,19 @@
 		background-color: $clr-grey-4;
 	}
 
-	&__icon-container {
+	&__button {
 		position: absolute;
 		top: 1rem;
 		right: 1rem;
+    height: 4rem;
+		width: 4rem;
+    border: none;
+    background-color: transparent;
 	}
 
 	&__icon {
-		height: 4rem;
-		width: 4rem;
+    height: 100%;
+    width: 100%;
 		fill: $clr-grey-3;
 		cursor: pointer;
 		transition: all 0.2s;

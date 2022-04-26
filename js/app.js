@@ -220,6 +220,7 @@ class App {
             placeholder="1"
             min="${MIN_VALUE + 1}"
             max="${MAX_VALUE}"
+            step="1"
           />
           <button class="form__button">Set</button>
         </form>

@@ -6,7 +6,7 @@
 	"scripts": {
 		"watch:sass": "node-sass sass/main.scss css/style.css -w",
 		"start": "npm-run-all --parallel watch:sass",
-    "start:parcel": "parcel index.html",
+		"start:parcel": "parcel index.html",
 		"compile:sass": "node-sass sass/main.scss css/style.comp.css",
 		"prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/style.comp.css -o css/style.prefix.css",
 		"compress:css": "node-sass css/style.prefix.css css/style.css --output-style compressed",

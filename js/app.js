@@ -7,6 +7,7 @@ class Counter {
 }
 
 const addCounterBtn = document.querySelector('.button--circle');
+const iconCross = document.querySelector('.cross');
 
 class App {
 	#counters = [];
@@ -27,6 +28,9 @@ class App {
 
 	_renderCounters() {
 		const countersContainer = document.querySelector('.counters');
+    const iconOptions = document.querySelector('.options');
+    const iconMinus = document.querySelector('.minus')
+    const iconPlus = document.querySelector('.plus')
 
 		countersContainer.innerHTML = '';
 
@@ -40,11 +44,7 @@ class App {
           <input type="text" class="counter__title" value="${counter.title}" spellcheck="false">
 
           <button class="counter__link" aria-label="Counter options">
-            <svg class="counter__icon icon">
-              <use
-                xlink:href="symbol-defs.svg#icon-dots-three-vertical"
-              ></use>
-            </svg>
+            ${iconOptions.outerHTML}
           </button>
 
           <nav class="nav">
@@ -70,15 +70,11 @@ class App {
         </div>
         <div class="counter__buttons">
           <button type="button" class="counter__button--primary decrease" aria-label="Decrease counter">
-            <svg class="counter__button-icon">
-              <use xlink:href="symbol-defs.svg#icon-minus"></use>
-            </svg>
+            ${iconMinus.outerHTML}
           </button>
 
           <button type="button" class="counter__button--primary increase" aria-label="Increase counter">
-            <svg class="counter__button-icon">
-              <use xlink:href="symbol-defs.svg#icon-plus"></use>
-            </svg>
+            ${iconPlus.outerHTML}
           </button>
 
           <button class="counter__button--secondary">Set goal</button>
@@ -91,7 +87,7 @@ class App {
 
 			const counterTitle = counterHTML.querySelector('.counter__title');
 			const counterBtns = counterHTML.querySelector('.counter__buttons');
-      const btnOptions = counterHTML.querySelector('.counter__link');
+			const btnOptions = counterHTML.querySelector('.counter__link');
 			const btnSetGoal = counterHTML.querySelector(
 				'.counter__button--secondary'
 			);
@@ -205,6 +201,8 @@ class App {
 
 	_displayPopup(e, counter) {
 		const popupsContainer = document.querySelector('.popups');
+
+
 		popupsContainer.innerHTML = '';
 
 		const popup = document.createElement('div');
@@ -212,9 +210,7 @@ class App {
 		popup.innerHTML = `
       <div class="popup__content">
         <button class="popup__button" aria-label="Close popup">
-          <svg class="popup__icon">
-            <use xlink:href="symbol-defs.svg#icon-cross"></use>
-          </svg>
+          ${iconCross.outerHTML}
         </button>
         <p class="popup__text"></p>
         <form action="#" class="form">

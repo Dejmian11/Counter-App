@@ -28,7 +28,78 @@
 			<h1 class="heading-primary">Online <span>Counter</span></h1>
 		</header>
 
-		<section class="counters"></section>
+		<section class="counters">
+			<div class="counter">
+				<div class="counter__header">
+					<input
+						type="text"
+						class="counter__title"
+						value="New counter"
+						spellcheck="false"
+					/>
+
+					<button class="counter__link" aria-label="Counter options">
+						<svg class="counter__icon icon options">
+							<use
+								xlink:href="img/symbol-defs.svg#icon-dots-three-vertical"
+							></use>
+						</svg>
+					</button>
+
+					<nav class="nav">
+						<ul class="nav__list">
+							<li class="nav__element">
+								<button id="initial-value" class="nav__button">
+									Initial value
+								</button>
+							</li>
+							<li class="nav__element">
+								<button id="reset-value" class="nav__button">
+									Reset value
+								</button>
+							</li>
+							<li class="nav__element">
+								<button id="delete-goal" class="nav__button">
+									Delete goal
+								</button>
+							</li>
+							<li class="nav__element">
+								<button id="delete-counter" class="nav__button">
+									Delete counter
+								</button>
+							</li>
+						</ul>
+					</nav>
+				</div>
+				<div class="counter__value">
+					<div class="counter__number">0</div>
+					<div class="counter__goal"></div>
+				</div>
+				<div class="counter__buttons">
+					<button
+						type="button"
+						class="counter__button--primary decrease"
+						aria-label="Decrease counter"
+					>
+						<svg class="counter__button-icon minus">
+							<use xlink:href="img/symbol-defs.svg#icon-minus"></use>
+						</svg>
+					</button>
+
+					<button
+						type="button"
+						class="counter__button--primary increase"
+						aria-label="Increase counter"
+					>
+						<svg class="counter__button-icon plus">
+							<use xlink:href="img/symbol-defs.svg#icon-plus"></use>
+						</svg>
+					</button>
+
+					<button class="counter__button--secondary">Set goal</button>
+				</div>
+			</div>
+		</section>
 
 		<button class="button--circle" aria-label="Add counter">
 			<svg class="button--circle__icon">
@@ -38,6 +109,27 @@
 
 		<div class="overlay overlay--hidden"></div>
 
-		<div class="popups"></div>
+		<div class="popups">
+			<div class="popup u-display-none">
+				<div class="popup__content">
+					<button class="popup__button" aria-label="Close popup">
+						<svg class="popup__icon cross">
+							<use xlink:href="img/symbol-defs.svg#icon-cross"></use>
+						</svg>
+					</button>
+					<p class="popup__text"></p>
+					<form action="#" class="form">
+						<input
+							type="number"
+							class="form__input"
+							placeholder="1"
+							min="0"
+							max="9999"
+						/>
+						<button class="form__button">Set</button>
+					</form>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

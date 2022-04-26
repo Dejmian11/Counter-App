@@ -35,7 +35,6 @@ $fs-h1: 4rem;
 $bp-medium: 48em; // 768px
 $bp-small: 31.25em; // 500px
 
-
 // ===================== RESET ==========================================
 
 *,
@@ -58,11 +57,11 @@ html {
 body {
 	background-color: $clr-grey-1;
 	color: $clr-white;
-  font-size: $fs-default;
+	font-size: $fs-default;
 	font-family: 'Poppins', sans-serif;
 	font-weight: 400;
 	line-height: 1.6;
-  
+
 	&::-webkit-scrollbar {
 		width: 14px;
 		background-color: $clr-grey-5;
@@ -83,23 +82,22 @@ body {
 	}
 }
 
-
 // ===================== MIXINS =========================================
 
 @mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 @mixin flex-center-column {
-  @include flex-center;
-  flex-direction: column;
+	@include flex-center;
+	flex-direction: column;
 }
 
 @mixin flex-center-vert {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 @mixin full-scr-fixed {
@@ -107,5 +105,11 @@ body {
 	top: 0;
 	left: 0;
 	width: 100vw;
-  height: 100vh;
+	height: 100vh;
+}
+
+// ===================== UTILITIES ======================================
+
+.u-display-none {
+	display: none !important;
 }

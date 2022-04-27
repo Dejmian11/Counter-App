@@ -52,7 +52,7 @@ body {
   margin: 0 auto;
   padding: 1rem 1.5rem 5rem; }
 
-.button--circle {
+.btn--circle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,31 +68,31 @@ body {
   cursor: pointer;
   transition: all 0.2s; }
   @media screen and (min-width: 31.25em) {
-    .button--circle {
+    .btn--circle {
       right: 4rem;
       bottom: 4rem;
       height: 9rem;
       width: 9rem; } }
-  .button--circle:hover {
+  .btn--circle:hover {
     background-color: #2d87d0; }
-  .button--circle__icon {
+  .btn--circle__icon {
     height: 60%;
     width: 60%;
     fill: #fff; }
 
-.heading-primary {
+.heading--primary {
   font-size: 4rem;
   font-weight: 600;
   text-align: center;
   line-height: 1.2;
   letter-spacing: 0.2rem;
   text-transform: uppercase; }
-  .heading-primary > span {
+  .heading--primary > span {
     color: #339af0; }
   @media screen and (min-width: 48em) {
-    .heading-primary {
+    .heading--primary {
       font-size: 6rem; } }
-  .heading-primary--blue {
+  .heading--primary--blue {
     color: #339af0; }
 
 .counter {
@@ -108,7 +108,7 @@ body {
     align-items: center;
     justify-content: space-between; }
   .counter__title {
-    padding: .4rem;
+    padding: 0.4rem;
     border: none;
     border-radius: 2px;
     background-color: #495057;
@@ -118,7 +118,7 @@ body {
     color: #fff; }
     .counter__title:focus {
       outline: 2px solid #868e96; }
-  .counter__link {
+  .counter__btn--options {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,26 +128,26 @@ body {
     background-color: transparent;
     cursor: pointer;
     transition: all 0.2s; }
-    .counter__link:hover .counter__icon {
+    .counter__btn--options:hover .counter__icon {
       fill: #bac4ce; }
   .counter__icon {
     height: 2.2rem;
     width: 2.2rem;
     fill: #868e96; }
-  .counter__value {
+  .counter__numbers {
     display: flex;
     align-items: center;
     justify-content: center; }
-  .counter__number {
+  .counter__value {
     margin-left: auto;
     margin-right: auto;
     font-size: 10rem;
     font-weight: 600;
     line-height: 1;
     color: #339af0; }
-    .counter__number--small {
+    .counter__value--small {
       font-size: 7rem; }
-    .counter__number--red {
+    .counter__value--red {
       color: #cc0000; }
   .counter__goal {
     display: none;
@@ -157,11 +157,11 @@ body {
     .counter__goal--small {
       margin-top: 16%;
       font-size: 2rem; }
-  .counter__buttons {
+  .counter__btns {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 9.5rem 10rem; }
-  .counter__button--primary {
+  .counter__btn--primary {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -171,20 +171,20 @@ body {
     color: #868e96;
     transition: all 0.1s;
     cursor: pointer; }
-    .counter__button--primary:nth-of-type(1) {
+    .counter__btn--primary:nth-of-type(1) {
       border-top-left-radius: 10px;
       border-bottom-left-radius: 10px; }
-    .counter__button--primary:nth-of-type(2) {
+    .counter__btn--primary:nth-of-type(2) {
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px; }
-    .counter__button--primary:hover {
+    .counter__btn--primary:hover {
       color: #bac4ce; }
-  .counter__button-icon {
+  .counter__btn-icon {
     height: 5rem;
     width: 5rem;
     fill: currentColor;
     pointer-events: none; }
-  .counter__button--secondary {
+  .counter__btn--secondary {
     grid-column: span 2;
     margin: 4rem auto 1rem auto;
     padding: 1rem 3rem;
@@ -197,7 +197,7 @@ body {
     color: #bac4ce;
     cursor: pointer;
     transition: all 0.2s; }
-    .counter__button--secondary:hover {
+    .counter__btn--secondary:hover {
       border: 2px solid #bac4ce;
       background-color: #bac4ce;
       color: #343a40; }
@@ -223,7 +223,7 @@ body {
     padding: 2rem;
     border-radius: 20px;
     background-color: #bac4ce; }
-  .popup__button {
+  .popup__btn {
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -269,7 +269,7 @@ body {
         padding: 1.5rem; } }
     .form__input:focus {
       outline: 2px solid #339af0; }
-  .form__button {
+  .form__btn {
     margin: 3rem auto 1rem;
     padding: 1.1rem 5rem;
     border: none;
@@ -283,10 +283,10 @@ body {
     cursor: pointer;
     transition: all 0.2s; }
     @media screen and (min-width: 31.25em) {
-      .form__button {
+      .form__btn {
         padding: 1.5rem 6rem;
         font-size: 3rem; } }
-    .form__button:hover {
+    .form__btn:hover {
       background-color: #2d87d0; }
 
 .nav {
@@ -301,7 +301,7 @@ body {
   background-color: #fff; }
   .nav__list {
     list-style: none; }
-  .nav__button {
+  .nav__btn {
     display: block;
     height: 100%;
     width: 100%;
@@ -313,7 +313,7 @@ body {
     text-decoration: none;
     cursor: pointer;
     transition: 0.2s; }
-    .nav__button:hover {
+    .nav__btn:hover {
       background-color: #e8eff6;
       color: #343a40; }
 

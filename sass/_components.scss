@@ -1,5 +1,5 @@
 // ===================== HEADING PRIMARY ================================
-.heading-primary {
+.heading--primary {
 	font-size: $fs-h1;
 	font-weight: 600;
 	text-align: center;
@@ -7,9 +7,9 @@
 	letter-spacing: 0.2rem;
 	text-transform: uppercase;
 
-  & > span {
-    color: $clr-primary;
-  }
+	& > span {
+		color: $clr-primary;
+	}
 
 	@media screen and (min-width: $bp-medium) {
 		font-size: $fs-medium;
@@ -23,8 +23,8 @@
 // ===================== COUNTER ========================================
 .counter {
 	position: relative;
-  display: grid;
-  grid-template-rows: 3rem 15rem 2fr;
+	display: grid;
+	grid-template-rows: 3rem 15rem 2fr;
 	padding: 2rem;
 	border-radius: 20px;
 	box-shadow: $shadow-dk;
@@ -37,9 +37,9 @@
 	}
 
 	&__title {
-    padding: .4rem;
+		padding: 0.4rem;
 		border: none;
-    border-radius: 2px;
+		border-radius: 2px;
 		background-color: $clr-grey-2;
 		font-size: $fs-default;
 		font-weight: 600;
@@ -51,7 +51,7 @@
 		}
 	}
 
-	&__link {
+	&__btn--options {
 		@include flex-center;
 
 		height: 2.7rem;
@@ -72,18 +72,18 @@
 		fill: $clr-grey-3;
 	}
 
-	&__value {
+	&__numbers {
 		@include flex-center-vert;
-    
-    justify-content: center;
+
+		justify-content: center;
 	}
 
-	&__number {
+	&__value {
 		margin-left: auto;
 		margin-right: auto;
 		font-size: $fs-biggest;
 		font-weight: 600;
-    line-height: 1;
+		line-height: 1;
 		color: $clr-primary;
 
 		&--small {
@@ -102,18 +102,18 @@
 		color: $clr-grey-3;
 
 		&--small {
-      margin-top: 16%;
+			margin-top: 16%;
 			font-size: $fs-smallest;
 		}
 	}
 
-	&__buttons {
+	&__btns {
 		display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 9.5rem 10rem;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 9.5rem 10rem;
 	}
 
-	&__button--primary {
+	&__btn--primary {
 		@include flex-center;
 
 		padding: 2rem 0;
@@ -138,15 +138,15 @@
 		}
 	}
 
-	&__button-icon {
+	&__btn-icon {
 		height: 5rem;
 		width: 5rem;
 		fill: currentColor;
 		pointer-events: none;
 	}
 
-	&__button--secondary {
-    grid-column: span 2;
+	&__btn--secondary {
+		grid-column: span 2;
 		margin: 4rem auto 1rem auto;
 		padding: 1rem 3rem;
 		border: 2px solid currentColor;
@@ -170,7 +170,7 @@
 // ===================== POPUP ==========================================
 .popup {
 	@include flex-center;
-  @include full-scr-fixed;
+	@include full-scr-fixed;
 
 	background-color: $clr-dk-transparent;
 
@@ -189,19 +189,19 @@
 		background-color: $clr-grey-4;
 	}
 
-	&__button {
+	&__btn {
 		position: absolute;
 		top: 1rem;
 		right: 1rem;
-    height: 4rem;
+		height: 4rem;
 		width: 4rem;
-    border: none;
-    background-color: transparent;
+		border: none;
+		background-color: transparent;
 	}
 
 	&__icon {
-    height: 100%;
-    width: 100%;
+		height: 100%;
+		width: 100%;
 		fill: $clr-grey-3;
 		cursor: pointer;
 		transition: all 0.2s;
@@ -214,7 +214,7 @@
 	&__text {
 		margin: 5rem auto;
 		font-size: $fs-small;
-    font-weight: 600;
+		font-weight: 600;
 		text-transform: uppercase;
 		color: $clr-primary;
 
@@ -237,7 +237,6 @@
 		font-size: $fs-medium;
 		font-weight: 600;
 		color: $clr-grey-1;
-    
 
 		@media screen and (min-width: $bp-small) {
 			max-width: 21rem;
@@ -249,7 +248,7 @@
 		}
 	}
 
-	&__button {
+	&__btn {
 		margin: 3rem auto 1rem;
 		padding: 1.1rem 5rem;
 		border: none;
@@ -283,14 +282,14 @@
 	display: none;
 	padding: 0.5rem 0;
 	border-radius: 7px;
-  box-shadow: $shadow-lt;
+	box-shadow: $shadow-lt;
 	background-color: $clr-white;
 
 	&__list {
 		list-style: none;
 	}
 
-	&__button {
+	&__btn {
 		display: block;
 		height: 100%;
 		width: 100%;

@@ -6,7 +6,7 @@ class Counter {
 	goal = 0;
 }
 
-const addCounterBtn = document.querySelector('.button--circle');
+const addCounterBtn = document.querySelector('.btn--circle');
 const iconCross = document.querySelector('.cross');
 
 class App {
@@ -28,9 +28,9 @@ class App {
 
 	_renderCounters() {
 		const countersContainer = document.querySelector('.counters');
-    const iconOptions = document.querySelector('.options');
-    const iconMinus = document.querySelector('.minus')
-    const iconPlus = document.querySelector('.plus')
+		const iconOptions = document.querySelector('.options');
+		const iconMinus = document.querySelector('.minus');
+		const iconPlus = document.querySelector('.plus');
 
 		countersContainer.innerHTML = '';
 
@@ -43,41 +43,41 @@ class App {
         <div class="counter__header">
           <input type="text" class="counter__title" value="${counter.title}" spellcheck="false">
 
-          <button class="counter__link" aria-label="Counter options">
+          <button class="counter__btn--options" aria-label="Counter options">
             ${iconOptions.outerHTML}
           </button>
 
           <nav class="nav">
             <ul class="nav__list">
               <li class="nav__element">
-                <button id="initial-value" class="nav__button">Initial value</button>
+                <button id="initial-value" class="nav__btn">Initial value</button>
               </li>
               <li class="nav__element">
-                <button id="reset-value" class="nav__button">Reset value</button>
+                <button id="reset-value" class="nav__btn">Reset value</button>
               </li>
               <li class="nav__element">
-                <button id="delete-goal" class="nav__button">Delete goal</button>
+                <button id="delete-goal" class="nav__btn">Delete goal</button>
               </li>
               <li class="nav__element">
-                <button id="delete-counter" class="nav__button">Delete counter</button>
+                <button id="delete-counter" class="nav__btn">Delete counter</button>
               </li>
             </ul>
           </nav>
         </div>
-        <div class="counter__value">
-          <div class="counter__number">${counter.value}</div>
+        <div class="counter__numbers">
+          <div class="counter__value">${counter.value}</div>
           <div class="counter__goal">/${counter.goal}</div>
         </div>
-        <div class="counter__buttons">
-          <button type="button" class="counter__button--primary decrease" aria-label="Decrease counter">
+        <div class="counter__btns">
+          <button type="button" class="counter__btn--primary decrease" aria-label="Decrease counter">
             ${iconMinus.outerHTML}
           </button>
 
-          <button type="button" class="counter__button--primary increase" aria-label="Increase counter">
+          <button type="button" class="counter__btn--primary increase" aria-label="Increase counter">
             ${iconPlus.outerHTML}
           </button>
 
-          <button class="counter__button--secondary">Set goal</button>
+          <button class="counter__btn--secondary">Set goal</button>
         </div>
       `;
 			// Change value and goal styles
@@ -86,11 +86,9 @@ class App {
 			countersContainer.append(counterHTML);
 
 			const counterTitle = counterHTML.querySelector('.counter__title');
-			const counterBtns = counterHTML.querySelector('.counter__buttons');
-			const btnOptions = counterHTML.querySelector('.counter__link');
-			const btnSetGoal = counterHTML.querySelector(
-				'.counter__button--secondary'
-			);
+			const counterBtns = counterHTML.querySelector('.counter__btns');
+			const btnOptions = counterHTML.querySelector('.counter__btn--options');
+			const btnSetGoal = counterHTML.querySelector('.counter__btn--secondary');
 
 			// Change counter title
 			counterTitle.addEventListener('input', () =>
@@ -107,7 +105,7 @@ class App {
 
 			// Display popup
 			btnSetGoal.addEventListener('click', e => {
-				if (!e.target.classList.contains('counter__button--secondary')) return;
+				if (!e.target.classList.contains('counter__btn--secondary')) return;
 				this._displayPopup(e, counter);
 			});
 		});
@@ -179,12 +177,12 @@ class App {
 	}
 
 	_changeCounterStyle(counterHTML, counter) {
-		const counterNum = counterHTML.querySelector('.counter__number');
+		const counterNum = counterHTML.querySelector('.counter__value');
 		const counterGoal = counterHTML.querySelector('.counter__goal');
 
 		// Reduce font size
 		if (counterNum.innerText.length > 3) {
-			counterNum.classList.add('counter__number--small');
+			counterNum.classList.add('counter__value--small');
 		}
 		if (counterGoal.innerText.length > 4) {
 			counterGoal.classList.add('counter__goal--small');
@@ -192,7 +190,7 @@ class App {
 
 		// Change value color
 		if (counter.value === counter.goal && counter.goal) {
-			counterNum.classList.add('counter__number--red');
+			counterNum.classList.add('counter__value--red');
 		}
 
 		// Display goal
@@ -202,14 +200,13 @@ class App {
 	_displayPopup(e, counter) {
 		const popupsContainer = document.querySelector('.popups');
 
-
 		popupsContainer.innerHTML = '';
 
 		const popup = document.createElement('div');
 		popup.classList.add('popup');
 		popup.innerHTML = `
       <div class="popup__content">
-        <button class="popup__button" aria-label="Close popup">
+        <button class="popup__btn" aria-label="Close popup">
           ${iconCross.outerHTML}
         </button>
         <p class="popup__text"></p>
@@ -222,7 +219,7 @@ class App {
             max="${MAX_VALUE}"
             step="1"
           />
-          <button class="form__button">Set</button>
+          <button class="form__btn">Set</button>
         </form>
       </div>
     `;
@@ -232,9 +229,9 @@ class App {
 		const popupIcon = popup.querySelector('.popup__icon');
 		const form = popup.querySelector('.form');
 		const formInput = document.querySelector('.form__input');
-
 		const clickedBtn = e.target;
-		if (clickedBtn.classList.contains('counter__button--secondary')) {
+
+		if (clickedBtn.classList.contains('counter__btn--secondary')) {
 			popupText.innerText = 'Set goal to:';
 		}
 		if (clickedBtn.getAttribute('id') === 'initial-value') {
@@ -247,7 +244,7 @@ class App {
 			const inputValue = formInput.value;
 			if (!inputValue) return;
 
-			if (clickedBtn.classList.contains('counter__button--secondary')) {
+			if (clickedBtn.classList.contains('counter__btn--secondary')) {
 				counter.goal = +inputValue;
 				if (counter.goal < counter.value) counter.value = counter.goal;
 			}

@@ -12,7 +12,7 @@
 	}
 
 	@media screen and (min-width: $bp-medium) {
-		font-size: $fs-medium;
+		font-size: $fs-big;
 	}
 
 	&--blue {
@@ -36,22 +36,75 @@
 		justify-content: space-between;
 	}
 
-	&__title {
-		padding: 0.4rem;
-		border: none;
-		border-radius: 2px;
-		background-color: $clr-grey-2;
-		font-size: $fs-default;
+	&__btn-name {
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
+		padding: .6rem 1rem;
+    border: none;
+		border-radius: 20px;
+    background-color: transparent;
+    color: $clr-white;
+    text-align: left;
+    font-size: $fs-default;
 		font-weight: 600;
 		letter-spacing: 0.1rem;
-		color: $clr-white;
+    cursor: pointer;
 
-		&:focus {
-			outline: 2px solid $clr-grey-3;
-		}
+    &:hover {
+      background-color: $clr-grey-1;
+
+      & .edit {
+        display: inline;
+      }
+    }
+
+    .edit {
+      display: none;
+      height: 1.9rem;
+      width: 1.9rem;
+      fill: $clr-primary;
+    }
 	}
 
-	&__btn--options {
+  &__form {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    width: 85%;
+    padding: .6rem 1rem;
+    border-radius: 20px;
+		background-color: $clr-grey-1;
+    
+    &-input {
+      width: 85%;
+      border: none;
+      background-color: $clr-grey-1;
+      font-size: $fs-default;
+      font-weight: 600;
+      letter-spacing: 0.1rem;
+      color: $clr-white;
+
+      &:focus {
+        outline: 2px solid $clr-grey-1;
+      }
+    }
+
+    &-btn {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .check {
+      height: 2rem;
+      width: 2rem;
+      fill: $clr-primary;
+    }
+  }
+
+
+	&__btn-options {
 		@include flex-center;
 
 		height: 2.7rem;
@@ -87,7 +140,7 @@
 		color: $clr-primary;
 
 		&--small {
-			font-size: $fs-big;
+			font-size: $fs-bigger;
 		}
 
 		&--red {
@@ -95,15 +148,15 @@
 		}
 	}
 
-	&__goal {
+	&__target {
 		display: none;
 		margin-top: 22%;
-		font-size: $fs-small;
+		font-size: $fs-medium;
 		color: $clr-grey-3;
 
 		&--small {
 			margin-top: 16%;
-			font-size: $fs-smallest;
+			font-size: $fs-small;
 		}
 	}
 
@@ -153,7 +206,7 @@
 		border-radius: 50px;
 		box-shadow: $shadow-dk;
 		background-color: $clr-grey-2;
-		font-size: $fs-smallest;
+		font-size: $fs-small;
 		font-weight: 600;
 		color: $clr-grey-4;
 		cursor: pointer;
@@ -211,9 +264,9 @@
 		}
 	}
 
-	&__text {
-		margin: 5rem auto;
-		font-size: $fs-small;
+	&__title {
+		margin: 4rem auto 2rem auto;
+		font-size: $fs-medium;
 		font-weight: 600;
 		text-transform: uppercase;
 		color: $clr-primary;
@@ -230,7 +283,7 @@
 
 	&__input {
 		padding: 1rem;
-		max-width: 17rem;
+		max-width: 13rem;
 		border: none;
 		border-radius: 20px;
 		background-color: $clr-white;
@@ -254,18 +307,13 @@
 		border: none;
 		border-radius: 30px;
 		background-color: $clr-primary;
-		font-size: $fs-smallest;
+		font-size: $fs-small;
 		font-weight: 600;
 		letter-spacing: 0.1rem;
 		text-transform: uppercase;
 		color: $clr-white;
 		cursor: pointer;
 		transition: all 0.2s;
-
-		@media screen and (min-width: $bp-small) {
-			padding: 1.5rem 6rem;
-			font-size: $fs-small;
-		}
 
 		&:hover {
 			background-color: $clr-primary-dk;

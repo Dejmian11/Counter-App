@@ -1,13 +1,14 @@
 import { INITIAL_NAME, INITIAL_VALUE, MAX_VALUE, MIN_VALUE } from './config.js';
 
 class Counter {
-	title = INITIAL_NAME;
+	name = INITIAL_NAME;
 	value = INITIAL_VALUE;
-	goal = 0;
+	target = 0;
 }
 
 const addCounterBtn = document.querySelector('.btn--circle');
-const iconCross = document.querySelector('.cross');
+const counterTemp = document.querySelector('.counter-temp');
+const popupTemp = document.querySelector('.popup-temp');
 
 class App {
 	#counters = [];
@@ -28,103 +29,96 @@ class App {
 
 	_renderCounters() {
 		const countersContainer = document.querySelector('.counters');
-		const iconOptions = document.querySelector('.options');
-		const iconMinus = document.querySelector('.minus');
-		const iconPlus = document.querySelector('.plus');
 
 		countersContainer.innerHTML = '';
 
-		this.#counters.forEach((counter, index) => {
-			const counterHTML = document.createElement('div');
-			counterHTML.classList.add('counter');
-			counterHTML.dataset.index = index;
+		this.#counters.forEach(counter => {
+			const counterHTML = counterTemp.content.cloneNode(true);
+			const counterBtnName = counterHTML.querySelector('.counter__btn-name');
+			const counterName = counterHTML.querySelector('.counter__btn-name div');
+			const counterForm = counterHTML.querySelector('.counter__form');
+			const counterFormBtn = counterHTML.querySelector('.counter__form-btn');
+			const counterFormInput = counterHTML.querySelector(
+				'.counter__form-input'
+			);
+			const counterValue = counterHTML.querySelector('.counter__value');
+			const counterTarget = counterHTML.querySelector('.counter__target');
+			const counterBtns = counterHTML.querySelector('.counter__btns');
+			const btnOptions = counterHTML.querySelector('.counter__btn-options');
+			const btnSetTarget = counterHTML.querySelector(
+				'.counter__btn--secondary'
+			);
+			const nav = counterHTML.querySelector('.nav');
 
-			counterHTML.innerHTML = `
-        <div class="counter__header">
-          <input type="text" class="counter__title" value="${counter.title}" spellcheck="false">
+			counterName.innerText = counter.name;
+			counterValue.innerText = counter.value;
+			counterTarget.innerText = '/' + counter.target;
 
-          <button class="counter__btn--options" aria-label="Counter options">
-            ${iconOptions.outerHTML}
-          </button>
-
-          <nav class="nav">
-            <ul class="nav__list">
-              <li class="nav__element">
-                <button id="initial-value" class="nav__btn">Initial value</button>
-              </li>
-              <li class="nav__element">
-                <button id="reset-value" class="nav__btn">Reset value</button>
-              </li>
-              <li class="nav__element">
-                <button id="delete-goal" class="nav__btn">Delete goal</button>
-              </li>
-              <li class="nav__element">
-                <button id="delete-counter" class="nav__btn">Delete counter</button>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div class="counter__numbers">
-          <div class="counter__value">${counter.value}</div>
-          <div class="counter__goal">/${counter.goal}</div>
-        </div>
-        <div class="counter__btns">
-          <button type="button" class="counter__btn--primary decrease" aria-label="Decrease counter">
-            ${iconMinus.outerHTML}
-          </button>
-
-          <button type="button" class="counter__btn--primary increase" aria-label="Increase counter">
-            ${iconPlus.outerHTML}
-          </button>
-
-          <button class="counter__btn--secondary">Set goal</button>
-        </div>
-      `;
-			// Change value and goal styles
-			this._changeCounterStyle(counterHTML, counter);
+			// Change value and target styles
+			this._changeCounterStyle(counterValue, counterTarget, counter);
 
 			countersContainer.append(counterHTML);
 
-			const counterTitle = counterHTML.querySelector('.counter__title');
-			const counterBtns = counterHTML.querySelector('.counter__btns');
-			const btnOptions = counterHTML.querySelector('.counter__btn--options');
-			const btnSetGoal = counterHTML.querySelector('.counter__btn--secondary');
-
-			// Change counter title
-			counterTitle.addEventListener('input', () =>
-				this._changeCounterTitle(counter, counterTitle)
+			// Display counter name input
+			counterBtnName.addEventListener('click', () =>
+				this._displayCounterNameInput(
+					counterForm,
+					counterFormInput,
+					counterBtnName
+				)
 			);
+
+			// Change counter name
+			counterFormBtn.addEventListener('click', e => {
+				this._changeCounterName(e, counter, counterForm, counterBtnName);
+			});
 
 			// Display nav
 			btnOptions.addEventListener('click', () => {
-				this._displayNav(counter, counterHTML);
+				this._displayOptions(counter, nav);
 			});
 
 			// Change counter value
 			counterBtns.addEventListener('click', e => this._changeValue(e, counter));
 
 			// Display popup
-			btnSetGoal.addEventListener('click', e => {
-				if (!e.target.classList.contains('counter__btn--secondary')) return;
-				this._displayPopup(e, counter);
+			btnSetTarget.addEventListener('click', e => {
+				if (e.target.classList.contains('counter__btn--secondary'))
+					this._displayPopup(e, counter);
 			});
 		});
 
 		this._setLocalStorage();
 	}
 
-	_changeCounterTitle(counter, counterTitle) {
-		counter.title = counterTitle.value;
-		this._setLocalStorage();
-		counterTitle.focus();
+	_displayCounterNameInput(counterForm, counterFormInput, counterBtnName) {
+		counterBtnName.style.display = 'none';
+		counterForm.style.display = 'flex';
+		counterFormInput.focus();
 	}
 
-	_displayNav(counter, counterHTML) {
-		const nav = counterHTML.querySelector('.nav');
+	_changeCounterName(e, counter, counterForm, counterBtnName) {
+		e.preventDefault();
+		const counterFormInput = counterForm.querySelector('.counter__form-input');
+
+		if (counterFormInput.value.length === 0) {
+			alert('Counter name must contain at least one character!');
+			return false;
+		}
+
+		counter.name = counterFormInput.value;
+		counterForm.style.display = 'none';
+		counterBtnName.style.display = 'flex';
+
+		this._setLocalStorage();
+		this._renderCounters();
+	}
+
+	_displayOptions(counter, nav) {
 		const overlay = document.querySelector('.overlay');
 
 		overlay.classList.remove('overlay--hidden');
-		overlay.addEventListener('click', () => this._closeNav(nav, overlay));
+		overlay.addEventListener('click', () => this._closeOptions(nav, overlay));
 
 		nav.style.display = 'block';
 
@@ -133,17 +127,17 @@ class App {
 				this._displayPopup(e, counter);
 			if (e.target.getAttribute('id') === 'reset-value')
 				this._resetValue(counter);
-			if (e.target.getAttribute('id') === 'delete-goal')
-				this._deleteGoal(counter);
+			if (e.target.getAttribute('id') === 'delete-target')
+				this._deleteTarget(counter);
 			if (e.target.getAttribute('id') === 'delete-counter')
 				this._deleteCounter(e, counter);
 
-			this._closeNav(nav, overlay);
+			this._closeOptions(nav, overlay);
 			this._renderCounters();
 		});
 	}
 
-	_closeNav(nav, overlay) {
+	_closeOptions(nav, overlay) {
 		nav.style.display = 'none';
 		overlay.classList.add('overlay--hidden');
 	}
@@ -153,7 +147,7 @@ class App {
 		if (e.target.classList.contains('decrease') && counter.value > MIN_VALUE) {
 			counter.value -= 1;
 		}
-		if (counter.goal && counter.value === counter.goal) return;
+		if (counter.target && counter.value === counter.target) return;
 
 		// Increase value
 		if (e.target.classList.contains('increase') && counter.value < MAX_VALUE) {
@@ -167,8 +161,8 @@ class App {
 		counter.value = 0;
 	}
 
-	_deleteGoal(counter) {
-		counter.goal = 0;
+	_deleteTarget(counter) {
+		counter.target = 0;
 	}
 
 	_deleteCounter(e) {
@@ -176,66 +170,42 @@ class App {
 		this.#counters.splice(index, 1);
 	}
 
-	_changeCounterStyle(counterHTML, counter) {
-		const counterNum = counterHTML.querySelector('.counter__value');
-		const counterGoal = counterHTML.querySelector('.counter__goal');
-
+	_changeCounterStyle(counterValue, counterTarget, counter) {
 		// Reduce font size
-		if (counterNum.innerText.length > 3) {
-			counterNum.classList.add('counter__value--small');
+		if (counterValue.innerText.length > 3) {
+			counterValue.classList.add('counter__value--small');
 		}
-		if (counterGoal.innerText.length > 4) {
-			counterGoal.classList.add('counter__goal--small');
+		if (counterTarget.innerText.length > 4) {
+			counterTarget.classList.add('counter__target--small');
 		}
 
 		// Change value color
-		if (counter.value === counter.goal && counter.goal) {
-			counterNum.classList.add('counter__value--red');
+		if (counter.value === counter.target && counter.target) {
+			counterValue.classList.add('counter__value--red');
 		}
 
-		// Display goal
-		if (counter.goal) counterGoal.style.display = 'block';
+		// Display target
+		if (counter.target) counterTarget.style.display = 'block';
 	}
 
 	_displayPopup(e, counter) {
 		const popupsContainer = document.querySelector('.popups');
+		const popup = popupTemp.content.cloneNode(true);
+		const popupTitle = popup.querySelector('.popup__title');
+		const popupCloseBtn = popup.querySelector('.popup__btn');
+		const form = popup.querySelector('.form');
+		const formInput = popup.querySelector('.form__input');
+		const clickedBtn = e.target;
 
 		popupsContainer.innerHTML = '';
 
-		const popup = document.createElement('div');
-		popup.classList.add('popup');
-		popup.innerHTML = `
-      <div class="popup__content">
-        <button class="popup__btn" aria-label="Close popup">
-          ${iconCross.outerHTML}
-        </button>
-        <p class="popup__text"></p>
-        <form action="#" class="form">
-          <input
-            type="number"
-            class="form__input"
-            placeholder="1"
-            min="${MIN_VALUE + 1}"
-            max="${MAX_VALUE}"
-            step="1"
-          />
-          <button class="form__btn">Set</button>
-        </form>
-      </div>
-    `;
 		popupsContainer.appendChild(popup);
 
-		const popupText = popup.querySelector('.popup__text');
-		const popupIcon = popup.querySelector('.popup__icon');
-		const form = popup.querySelector('.form');
-		const formInput = document.querySelector('.form__input');
-		const clickedBtn = e.target;
-
 		if (clickedBtn.classList.contains('counter__btn--secondary')) {
-			popupText.innerText = 'Set goal to:';
+			popupTitle.innerText = 'Set your target';
 		}
 		if (clickedBtn.getAttribute('id') === 'initial-value') {
-			popupText.innerText = 'Set value to:';
+			popupTitle.innerText = 'Set a new counter value';
 		}
 
 		// ============== FORM =============
@@ -245,27 +215,29 @@ class App {
 			if (!inputValue) return;
 
 			if (clickedBtn.classList.contains('counter__btn--secondary')) {
-				counter.goal = +inputValue;
-				if (counter.goal < counter.value) counter.value = counter.goal;
+				counter.target = +inputValue;
+				if (counter.target < counter.value) counter.value = counter.target;
 			}
 			if (clickedBtn.getAttribute('id') === 'initial-value') {
 				counter.value = +inputValue;
-				if (counter.value > counter.goal && counter.goal)
-					counter.goal = counter.value;
+				if (counter.value > counter.target && counter.target)
+					counter.target = counter.value;
 			}
 
-			this._removePopup(popup);
+			this._removePopup(popupsContainer);
 			this._renderCounters();
 		});
 
-		popupIcon.addEventListener('click', () => this._removePopup(popup));
+		popupCloseBtn.addEventListener('click', () =>
+			this._removePopup(popupsContainer)
+		);
 		window.addEventListener('keydown', e => {
-			if (e.key === 'Escape') this._removePopup(popup);
+			if (e.key === 'Escape') this._removePopup(popupsContainer);
 		});
 	}
 
-	_removePopup(popup) {
-		popup.remove();
+	_removePopup(popupsContainer) {
+		popupsContainer.innerHTML = '';
 	}
 
 	// ============= LOCAL STORAGE ==============

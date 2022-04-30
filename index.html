@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,6 +17,7 @@
 			href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;800&display=swap"
 			rel="stylesheet"
 		/>
+    <link rel="icon" type="image/x-icon" href="img/Favicon/favicon.ico">
 
 		<link rel="stylesheet" href="css/style.css" />
 		<script type="module" defer src="js/app.js"></script>
@@ -29,104 +30,125 @@
 		</header>
 
 		<section class="counters">
-			<div class="counter">
-				<div class="counter__header">
-					<input
-						type="text"
-						class="counter__title"
-						value="New counter"
-						spellcheck="false"
-					/>
+			<template class="counter-temp">
+				<div class="counter">
+					<div class="counter__header">
+						<button class="counter__btn-name" aria-label="Change counter name">
+							<div>New counter</div>
+							<svg class="counter__btn-icon edit">
+								<use xlink:href="img/symbol-defs.svg#icon-edit"></use>
+							</svg>
+						</button>
 
-					<button class="counter__btn--options" aria-label="Counter options">
-						<svg class="counter__icon options">
-							<use
-								xlink:href="img/symbol-defs.svg#icon-dots-three-vertical"
-							></use>
-						</svg>
-					</button>
+						<form action="#" class="counter__form">
+							<input
+								type="text"
+								class="counter__form-input"
+								placeholder="Counter name"
+								spellcheck="false"
+								maxlength="11"
+							/>
+							<button class="counter__form-btn" aria-label="Save counter name">
+								<svg class="counter__btn-icon check">
+									<use xlink:href="img/symbol-defs.svg#icon-check"></use>
+								</svg>
+							</button>
+						</form>
 
-					<nav class="nav">
-						<ul class="nav__list">
-							<li class="nav__element">
-								<button id="initial-value" class="nav__btn">
-									Initial value
-								</button>
-							</li>
-							<li class="nav__element">
-								<button id="reset-value" class="nav__btn">Reset value</button>
-							</li>
-							<li class="nav__element">
-								<button id="delete-goal" class="nav__btn">Delete goal</button>
-							</li>
-							<li class="nav__element">
-								<button id="delete-counter" class="nav__btn">
-									Delete counter
-								</button>
-							</li>
-						</ul>
-					</nav>
+						<button class="counter__btn-options" aria-label="Counter options">
+							<svg class="counter__icon options">
+								<use
+									xlink:href="img/symbol-defs.svg#icon-dots-three-vertical"
+								></use>
+							</svg>
+						</button>
+
+						<nav class="nav">
+							<ul class="nav__list">
+								<li class="nav__element">
+									<button id="initial-value" class="nav__btn">
+										Set value to...
+									</button>
+								</li>
+								<li class="nav__element">
+									<button id="reset-value" class="nav__btn">Reset value</button>
+								</li>
+								<li class="nav__element">
+									<button id="delete-target" class="nav__btn">Delete target</button>
+								</li>
+								<li class="nav__element">
+									<button id="delete-counter" class="nav__btn">
+										Delete counter
+									</button>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<div class="counter__numbers">
+						<div class="counter__value">0</div>
+						<div class="counter__target"></div>
+					</div>
+					<div class="counter__btns">
+						<button
+							type="button"
+							class="counter__btn--primary decrease"
+							aria-label="Decrease counter"
+						>
+							<svg class="counter__btn-icon minus">
+								<use xlink:href="img/symbol-defs.svg#icon-minus"></use>
+							</svg>
+						</button>
+
+						<button
+							type="button"
+							class="counter__btn--primary increase"
+							aria-label="Increase counter"
+						>
+							<svg class="counter__btn-icon plus">
+								<use xlink:href="img/symbol-defs.svg#icon-plus"></use>
+							</svg>
+						</button>
+
+						<button class="counter__btn--secondary">Add target</button>
+					</div>
 				</div>
-				<div class="counter__numbers">
-					<div class="counter__value">0</div>
-					<div class="counter__goal"></div>
-				</div>
-				<div class="counter__btns">
-					<button
-						type="button"
-						class="counter__btn--primary decrease"
-						aria-label="Decrease counter"
-					>
-						<svg class="counter__btn-icon minus">
-							<use xlink:href="img/symbol-defs.svg#icon-minus"></use>
-						</svg>
-					</button>
-
-					<button
-						type="button"
-						class="counter__btn--primary increase"
-						aria-label="Increase counter"
-					>
-						<svg class="counter__btn-icon plus">
-							<use xlink:href="img/symbol-defs.svg#icon-plus"></use>
-						</svg>
-					</button>
-
-					<button class="counter__btn--secondary">Set goal</button>
-				</div>
-			</div>
+			</template>
 		</section>
 
 		<button class="btn--circle" aria-label="Add counter">
 			<svg class="btn--circle__icon">
 				<use xlink:href="img/symbol-defs.svg#icon-plus"></use>
 			</svg>
+
+      <span class="tooltiptext">Add counter</span>
 		</button>
 
 		<div class="overlay overlay--hidden"></div>
 
 		<div class="popups">
-			<div class="popup u-display-none">
-				<div class="popup__content">
-					<button class="popup__btn" aria-label="Close popup">
-						<svg class="popup__icon cross">
-							<use xlink:href="img/symbol-defs.svg#icon-cross"></use>
-						</svg>
-					</button>
-					<p class="popup__text"></p>
-					<form action="#" class="form">
-						<input
-							type="number"
-							class="form__input"
-							placeholder="1"
-							min="0"
-							max="9999"
-							step="1"
-						/>
-						<button class="form__btn">Set</button>
-					</form>
+			<template class="popup-temp">
+				<div class="popup">
+					<div class="popup__content">
+						<button class="popup__btn" aria-label="Close popup">
+							<svg class="popup__icon cross">
+								<use xlink:href="img/symbol-defs.svg#icon-cross"></use>
+							</svg>
+						</button>
+						<h3 class="popup__title">Set target</h3>
+						<form action="#" class="form">
+							<input
+								type="number"
+								class="form__input"
+								placeholder="1"
+								min="1"
+								max="9999"
+								step="1"
+							/>
+							<button class="form__btn">Set</button>
+						</form>
+					</div>
 				</div>
-			</div>
+			</template>
 		</div>
 	</body>
 </html>

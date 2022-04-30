@@ -45,11 +45,38 @@
 
 	&:hover {
 		background-color: $clr-primary-dk;
+
+		& .tooltiptext {
+			visibility: visible;
+		}
 	}
 
 	&__icon {
 		height: 60%;
 		width: 60%;
 		fill: $clr-white;
+	}
+
+	.tooltiptext {
+		visibility: hidden;
+		position: absolute;
+		padding: 0.5rem;
+		width: 15rem;
+		border-radius: 50px;
+		transform: translateY(-220%);
+		background-color: $clr-grey-5;
+		font-size: $fs-small;
+		font-weight: 600;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color: $clr-grey-5 transparent transparent transparent;
+		}
 	}
 }
